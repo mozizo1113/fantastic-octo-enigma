@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>REFLECT | جهز دفعتك</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F5EF;--sf:#fff;--tx:#0B1F4B;--mu:#5B6785;--bd:#E2DFD3;--nv:#0B1F4B;--gd:#B8893A;--ok:#1E7B4F;--er:#B3261E;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0A1224;--sf:#131D38;--tx:#EEF1F8;--mu:#9AA7C7;--bd:#25325A;--nv:#E4B95E;--gd:#E4B95E;--ok:#4CC38A;--er:#FF8A80}}
+:root[data-theme=dark]{--bg:#0A1224;--sf:#131D38;--tx:#EEF1F8;--mu:#9AA7C7;--bd:#25325A;--nv:#E4B95E;--gd:#E4B95E;--ok:#4CC38A;--er:#FF8A80}
+*{box-sizing:border-box}html,body{margin:0}body{background:var(--bg);color:var(--tx);font-family:Cairo,system-ui,sans-serif;line-height:1.7}
+button,input,select,textarea{font:inherit;color:inherit}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:var(--bg);border-bottom:1px solid var(--bd)}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;letter-spacing:2px;color:var(--tx);direction:ltr}
+.logo small{display:block;font-size:8px;letter-spacing:1px;font-weight:600;color:var(--mu)}
+.ib{width:44px;height:44px;border:1px solid var(--bd);background:var(--sf);border-radius:12px;cursor:pointer;display:grid;place-items:center}
+.ham{position:relative;width:22px;height:16px}.ham i{position:absolute;inset-inline:0;height:2px;background:var(--tx);border-radius:2px;transition:.35s cubic-bezier(.7,0,.2,1)}
+.ham i:nth-child(1){top:0}.ham i:nth-child(2){top:7px}.ham i:nth-child(3){top:14px}
+.open .ham i:nth-child(1){top:7px;transform:rotate(45deg)}.open .ham i:nth-child(2){opacity:0;transform:scaleX(0)}.open .ham i:nth-child(3){top:7px;transform:rotate(-45deg)}
+#scrim{position:fixed;inset:0;background:#0008;opacity:0;pointer-events:none;transition:.3s;z-index:30}
+#drawer{position:fixed;top:0;bottom:0;inset-inline-start:0;width:min(82vw,320px);background:var(--sf);z-index:31;transform:translateX(105%);transition:transform .45s cubic-bezier(.7,0,.2,1);padding:80px 20px 20px;display:flex;flex-direction:column;gap:6px;border-inline-end:1px solid var(--bd)}
+.open #drawer{transform:none}.open #scrim{opacity:1;pointer-events:auto}
+#drawer button{background:none;border:0;text-align:start;font-size:20px;font-weight:600;padding:12px 8px;border-radius:10px;cursor:pointer;opacity:0;transform:translateX(30px);transition:.4s}
+.open #drawer button{opacity:1;transform:none;transition-delay:calc(var(--i)*70ms + 150ms)}
+#drawer button:hover,#drawer button.on{background:var(--bg);color:var(--gd)}
+main{max-width:720px;margin:0 auto;padding:20px 16px 90px}
+h1{font-size:clamp(30px,8vw,48px);line-height:1.25;margin:.2em 0;font-weight:800}h2{margin:.2em 0}
+p{color:var(--mu)}.gold{color:var(--gd)}
+.btn{display:inline-block;border:0;background:var(--nv);color:var(--bg);padding:13px 22px;border-radius:12px;font-weight:800;cursor:pointer;transition:transform .2s,box-shadow .2s;min-height:48px}
+:root[data-theme=dark] .btn,:root:not([data-theme=light]) .btn{}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px #0b1f4b33}.btn:active{transform:scale(.97)}.btn[disabled]{opacity:.5}
+.btn.o{background:none;border:1.5px solid var(--nv);color:var(--tx)}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:16px;margin:12px 0}
+label{display:block;font-weight:600;margin:12px 0 4px;font-size:14px}
+input,select,textarea{width:100%;padding:12px;border:1.5px solid var(--bd);border-radius:10px;background:var(--bg);min-height:46px}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:3px solid var(--gd);outline-offset:1px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.sz{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}.sz div{text-align:center;font-size:12px}.sz input{padding:6px;text-align:center}
+.chips{display:flex;flex-wrap:wrap;gap:8px}.chips label{margin:0;border:1.5px solid var(--bd);padding:8px 14px;border-radius:99px;cursor:pointer;display:flex;gap:6px;align-items:center;width:auto}.chips input{width:auto;min-height:0}
+.tag{display:inline-block;padding:2px 12px;border-radius:99px;background:var(--bg);border:1px solid var(--gd);color:var(--gd);font-size:13px;font-weight:600}
+.mq{overflow:hidden;white-space:nowrap;border-block:1px solid var(--bd);padding:8px 0;margin:22px 0;color:var(--gd);font-weight:800}.mq span{display:inline-block;padding-inline-start:100%;animation:mq 22s linear infinite}@keyframes mq{to{transform:translateX(100%)}}
+.rv{}@keyframes up{from{opacity:0;transform:translateY(18px)}}
+#gate{position:fixed;inset:0;z-index:50;background:var(--bg);overflow:auto;display:grid;place-items:center;padding:20px}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}.tabs button{padding:10px;border:0;border-bottom:3px solid var(--bd);background:none;font-weight:800;cursor:pointer}.tabs .on{border-color:var(--gd);color:var(--gd)}
+.err{color:var(--er);font-size:14px;min-height:22px}
+#toast{position:fixed;bottom:22px;inset-inline:16px;margin:auto;max-width:400px;background:var(--nv);color:var(--bg);padding:12px 16px;border-radius:12px;z-index:90;text-align:center;font-weight:600;transform:translateY(140%);transition:.4s}#toast.s{transform:none}
+#modal{position:fixed;inset:0;background:#000a;z-index:60;display:none;place-items:center;padding:16px}#modal.s{display:grid}#modal .card{width:100%;max-width:420px;animation:pop .35s both}@keyframes pop{from{transform:scale(.9);opacity:0}}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:80}.cap{position:fixed;bottom:-60px;font-size:34px;z-index:81;pointer-events:none;animation:fly var(--d) ease-out forwards}
+@keyframes fly{to{transform:translate(var(--x),-115vh) rotate(var(--r));opacity:.9}}
+.bd{display:inline-block;min-width:20px;padding:0 6px;border-radius:99px;background:var(--er);color:#fff;font-size:12px}
+.msg{border-inline-start:3px solid var(--gd);padding:6px 10px;margin:8px 0;background:var(--bg);border-radius:6px}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+main{max-width:1080px}form.card{max-width:640px}
+.rv>*{animation:up .55s both;animation-delay:calc(var(--n,0)*70ms)}
+.card{transition:transform .25s,box-shadow .25s,border-color .25s}.hv:hover{transform:translateY(-4px);box-shadow:0 14px 30px #0b1f4b22;border-color:var(--gd)}
+.im{overflow:hidden;border-radius:10px}.im>*{transition:transform .6s;display:block}.hv:hover .im>*,.pd .im:hover>*{transform:scale(1.08)}
+.btn{position:relative;overflow:hidden}.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,#fff5 50%,transparent 70%);transform:translateX(-120%);transition:transform .7s}.btn:hover::after{transform:translateX(120%)}
+.hero{position:relative;overflow:hidden;background:#0B1F4B url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Cpath d='M28 14l12 6-12 6-12-6z' fill='none' stroke='%23E4B95E' stroke-opacity='.14' stroke-width='1.2'/%3E%3C/svg%3E");color:#fff;border-radius:22px;padding:22px 20px 28px}
+.hero h1{color:#fff;margin-top:.3em}.hero p{color:#C9D3EE;max-width:520px}.hero .btn{background:#E4B95E;color:#0B1F4B}.hero .btn.o{background:none;border-color:#E4B95E;color:#fff}
+.hcap{display:block;width:92px;margin:0 0 4px auto;animation:fl 5s ease-in-out infinite}@keyframes fl{50%{transform:translateY(-10px) rotate(5deg)}}
+:root[data-theme=dark] .hero{background-color:#17264F}@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .hero{background-color:#17264F}}
+.gr{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}.gr .card{margin:0}
+.sv{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}.sv .card{margin:0}.sv svg{width:38px;height:38px;color:var(--gd);margin-bottom:6px}
+.num{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--gd);color:#fff;font-weight:800;margin-bottom:6px}
+.pd{display:grid;gap:16px}#cta{display:none}
+@media(min-width:800px){.hero{padding:40px 44px}.hcap{position:absolute;inset-inline-end:44px;top:34px;width:210px;margin:0}.hero>:not(svg){max-width:58%}main{padding-top:32px}.pd{grid-template-columns:1fr 1fr;align-items:start}}
+@media(max-width:700px){#cta{display:flex;position:fixed;bottom:0;inset-inline:0;gap:8px;padding:8px 12px calc(8px + env(safe-area-inset-bottom,0px));background:var(--bg);border-top:1px solid var(--bd);z-index:15}#cta .btn{flex:1;padding:8px}#toast{bottom:84px}}
+@media(min-width:1000px){.gr{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<div id="root"></div><div id="toast" role="status"></div><div id="modal"></div><canvas id="fx"></canvas>
+<script>
+const $=s=>document.querySelector(s),ST={me:null,view:'home',adm:false};
+const G=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},P=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const H=async t=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode('reflect:'+t)))].map(b=>b.toString(16).padStart(2,'0')).join('');
+const STAT=['جديد','تم التواصل','جاري الاتفاق','تم إرسال العرض','تمت الموافقة','قيد التنفيذ','جاهز','تم التسليم','مرفوض','ملغي'];
+const PRODS=['روب تخرج','كاب','تيشيرت تخرج','درع تكريم','تصميم مخصص'],SIZES=['S','M','L','XL','2XL','3XL'];
+const ADMIN_EMAIL='nm@jsj.com';
+function toast(t){const e=$('#toast');e.textContent=t;e.className='s';clearTimeout(toast.t);toast.t=setTimeout(()=>e.className='',2800)}
+function theme(){const t=G('theme','auto');if(t=='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.dataset.theme=t}
+const logo=`<span class="logo"><svg width="34" height="34" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3"><path d="M8 12l12-6 12 6-12 5z" fill="currentColor"/><path d="M13 16v20M13 16h9a6 6 0 010 12h-9M21 28l9 8"/></svg><span>REFLECT<small>GRADUATION &amp; APPAREL</small></span></span>`;
+
+/* ---------- Auth gate ---------- */
+function gate(mode='reg'){
+ $('#root').innerHTML=`<div id="gate"><div style="width:100%;max-width:400px" class="rv"><div style="text-align:center;margin-bottom:14px">${logo}</div>
+ <h1 style="font-size:28px;text-align:center">${mode=='reg'?'أهلاً بيك في عيلة REFLECT 🎓':'حمد لله على السلامة!'}</h1>
+ <p style="text-align:center;margin:0 0 8px">${mode=='reg'?'اعمل حسابك في نص دقيقة وابدأ جهّز دفعتك.':'ادخل على حسابك وكمّل من عند آخر حاجة عملتها.'}</p>
+ <div class="tabs"><button class="${mode=='reg'?'on':''}" onclick="gate('reg')">حساب جديد</button><button class="${mode=='in'?'on':''}" onclick="gate('in')">تسجيل دخول</button></div>
+ <form class="card" id="af" novalidate>
+ ${mode=='reg'?'<label for="n">اسمك بالكامل</label><input id="n" autocomplete="name"><label for="ph">رقم الموبايل / واتساب</label><input id="ph" type="tel" inputmode="tel" autocomplete="tel">':''}
+ <label for="e">الإيميل</label><input id="e" type="email" autocomplete="email"><label for="p">الباسورد (6 حروف على الأقل)</label><input id="p" type="password" autocomplete="${mode=='reg'?'new-password':'current-password'}">
+ <div class="err" id="er" role="alert"></div><button class="btn" style="width:100%">${mode=='reg'?'يلا نبدأ':'دخول'}</button></form>
+ <p style="text-align:center;font-size:13px">بياناتك محفوظة ومش بتظهر لحد غيرنا.</p></div></div>`;
+ $('#af').onsubmit=async ev=>{ev.preventDefault();const v=i=>($('#'+i)?.value||'').trim(),er=m=>$('#er').textContent=m;
+  const e=v('e').toLowerCase(),p=v('p'),us=G('users',[]);
+  if(!/^\S+@\S+\.\S+$/.test(e))return er('الإيميل ده شكله مش مظبوط');if(p.length<6)return er('الباسورد لازم 6 حروف على الأقل');
+  if(mode=='reg'){if(v('n').length<3)return er('اكتب اسمك بالكامل');if(!/^[0-9+ ]{8,15}$/.test(v('ph')))return er('رقم الموبايل مش مظبوط');
+   if(us.some(u=>u.e==e))return er('الإيميل ده مسجل قبل كده، جرّب تسجيل الدخول');
+   us.push({e,n:v('n'),ph:v('ph'),h:await H(p),at:Date.now()});P('users',us);notify(e,'أهلاً بيك يا '+v('n')+'! حسابك اتفتح بنجاح 🎉')}
+  else{const u=us.find(u=>u.e==e);if(!u||u.h!=await H(p))return er('الإيميل أو الباسورد غلط')}
+  P('me',e);ST.me=us.find(u=>u.e==e)||G('users',[]).find(u=>u.e==e);ST.view='home';shell()}
+}
+const notify=(to,text)=>{const n=G('notes',[]);n.unshift({to,text,at:Date.now(),r:0});P('notes',n)};
+
+/* ---------- Shell + menu ---------- */
+const MENU=[['home','الرئيسية'],['shop','المنتجات'],['cart','السلة'],['book','جهّز دفعتك'],['orders','طلباتي'],['notes','الإشعارات'],['acct','حسابي'],['admin','لوحة الأدمن']];
+function shell(){
+ const un=G('notes',[]).filter(n=>n.to==ST.me.e&&!n.r).length;
+ $('#root').innerHTML=`<header>${logo}<div style="display:flex;gap:8px"><button class="ib" onclick="tog()" aria-label="الوضع" title="ليلي/نهاري">◐</button><button class="ib" id="hb" onclick="menu()" aria-label="القائمة" aria-expanded="false"><span class="ham"><i></i><i></i><i></i></span></button></div></header>
+ <div id="scrim" onclick="menu(0)"></div><nav id="drawer" aria-label="القائمة">${MENU.map((m,i)=>`<button style="--i:${i}" class="${ST.view==m[0]?'on':''}" onclick="go('${m[0]}')">${m[1]}${m[0]=='notes'&&un?` <span class="bd">${un}</span>`:''}</button>`).join('')}<button style="--i:8;color:var(--er)" onclick="out()">تسجيل خروج</button></nav><main id="app"></main><div id="cta"><button class="btn" onclick="go('book')">جهّز دفعتك</button><button class="btn o" onclick="go('cart')">🛒 السلة</button></div>`;
+ view()}
+function menu(f){const o=document.body.classList;const on=f===undefined?!o.contains('open'):f;o.toggle('open',!!on);$('#hb')?.setAttribute('aria-expanded',on)}
+function go(v){menu(0);ST.view=v;shell()}
+function tog(){const c=G('theme','auto');P('theme',c=='dark'?'light':'dark');theme()}
+function out(){menu(0);localStorage.removeItem('me');ST.me=null;ST.adm=false;gate('in')}
+
+/* ---------- Views ---------- */
+function view(){const a=$('#app');a.className='rv';
+ ({home,shop,cart,book,orders,notes,acct,admin})[ST.view](a);[...a.children].forEach((c,i)=>c.style.setProperty('--n',Math.min(i,10)))}
+const IC={g:'<path d="M18 6l-8 6-6 8 6 4v18h28V24l6-4-6-8-8-6-6 5z"/><path d="M24 11v31"/>',t:'<path d="M16 6L4 13l5 8 6-3v22h18V18l6 3 5-8L32 6c-2 4-14 4-16 0z"/>',s:'<path d="M24 4l16 6v12c0 10-7 18-16 22C15 40 8 32 8 22V10z"/><path d="M17 22l5 5 9-10"/>',p:'<path d="M24 6l4 12 12 4-12 4-4 12-4-12-12-4 12-4z"/>',d:'<path d="M8 40l4-12 22-22 8 8-22 22z"/><path d="M30 10l8 8"/>'};
+const ic=k=>`<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]}</svg>`;
+function home(a){a.innerHTML=`<section class="hero"><svg class="hcap" viewBox="0 0 120 100" aria-hidden="true"><path d="M60 10L4 36l56 26 56-26z" fill="#E4B95E"/><path d="M28 50v22c0 8 64 8 64 0V50l-32 15z" fill="#fff" fill-opacity=".9"/><path d="M110 40v34" stroke="#E4B95E" stroke-width="3"/><circle cx="110" cy="80" r="5" fill="#E4B95E"/></svg><span class="tag" style="border-color:#E4B95E;color:#E4B95E">أهلاً يا ${esc(ST.me.n.split(' ')[0])} 👋</span><h1>يوم التخرج بيتعاش <span style="color:#E4B95E">مرة واحدة</span>.. خليه يستاهل</h1>
+<p>كل مستلزمات يوم التخرج في مكان واحد.. من أول التصميم لحد آخر تفصيلة.</p><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px"><button class="btn" onclick="go('book')">جهّز دفعتك</button><button class="btn o" onclick="go('shop')">تصفح المنتجات</button></div></section>
+<div class="mq" aria-hidden="true"><span>🎓 أرواب &nbsp;•&nbsp; تيشيرتات &nbsp;•&nbsp; دروع تكريم &nbsp;•&nbsp; تصميمات مخصصة &nbsp;•&nbsp; حفلات تخرج &nbsp;•&nbsp; 🎓</span></div>
+<h2>بنعمل إيه؟</h2><div class="sv">${[['g','أرواب التخرج'],['t','تيشيرتات التخرج'],['s','دروع التكريم'],['p','تجهيز حفلات التخرج'],['d','تصميمات مخصصة']].map(s=>`<div class="card hv">${ic(s[0])}<br><b>${s[1]}</b></div>`).join('')}</div>
+<h2 style="margin-top:22px">الحجز بيمشي إزاي؟</h2><div class="sv">${['تملا بيانات الدفعة والمقاسات','تدفع العربون (تجريبي دلوقتي)','الأدمن يتواصل معاك ويبعتلك العرض','تتابع الحالة من الإشعارات'].map((t,i)=>`<div class="card hv"><div class="num">${i+1}</div>${t}</div>`).join('')}</div>`}
+
+function book(a){const u=ST.me;
+ a.innerHTML=`<h1 style="font-size:30px">حجز تجهيز دفعة 🎓</h1><p>املا البيانات وإحنا هنتواصل معاك بأسرع وقت.</p>
+<form id="bf" class="card" novalidate>
+<label for="rn">اسم مسؤول الدفعة</label><input id="rn" value="${esc(u.n)}">
+<label for="rp">رقم الموبايل / واتساب</label><input id="rp" type="tel" value="${esc(u.ph)}">
+<div class="g2"><div><label for="un">الجامعة</label><input id="un"></div><div><label for="fc">الكلية</label><input id="fc"></div></div>
+<label for="ct">عدد الطلبة</label><input id="ct" type="number" min="1" inputmode="numeric">
+<label>المنتجات المطلوبة</label><div class="chips">${PRODS.map(p=>`<label><input type="checkbox" name="pr" value="${p}">${p}</label>`).join('')}</div>
+<label>عدد كل مقاس <small id="sm" style="color:var(--mu)">(المجموع: 0)</small></label><div class="sz">${SIZES.map(s=>`<div>${s}<input type="number" min="0" inputmode="numeric" class="sq" data-s="${s}" value="0"></div>`).join('')}</div>
+<div class="g2"><div><label for="gd">ميعاد التخرج</label><input id="gd" type="date"></div><div><label for="dd">ميعاد الاستلام</label><input id="dd" type="date"></div></div>
+<label for="ad">العنوان</label><textarea id="ad" rows="2"></textarea>
+<label for="lk">رابط اللوكيشن (Google Maps)</label><input id="lk" type="url" dir="ltr" placeholder="https://maps.google.com/...">
+<label for="nt">ملاحظات (ألوان، طباعة، تصميم)</label><textarea id="nt" rows="3"></textarea>
+<div class="err" id="er" role="alert"></div><button class="btn" style="width:100%">كمّل للدفع</button></form>`;
+ const upd=()=>{const s=[...document.querySelectorAll('.sq')].reduce((t,i)=>t+(+i.value||0),0);$('#sm').textContent=`(المجموع: ${s})`;return s};
+ document.querySelectorAll('.sq').forEach(i=>i.oninput=upd);
+ $('#bf').onsubmit=ev=>{ev.preventDefault();const v=i=>$('#'+i).value.trim(),er=m=>{$('#er').textContent=m;return 1};
+  const pr=[...document.querySelectorAll('[name=pr]:checked')].map(x=>x.value),ct=+v('ct'),sum=upd();
+  if(!v('rn')||!v('rp')||!v('un')||!v('fc'))return er('كمّل بيانات المسؤول والجامعة والكلية');
+  if(!(ct>0))return er('اكتب عدد الطلبة');if(!pr.length)return er('اختار منتج واحد على الأقل');
+  if(sum!==ct)return er(`مجموع المقاسات (${sum}) لازم يساوي عدد الطلبة (${ct})`);
+  if(!v('gd')||!v('dd'))return er('حدد ميعاد التخرج وميعاد الاستلام');if(v('dd')<new Date().toISOString().slice(0,10))return er('ميعاد الاستلام لازم يكون في المستقبل');
+  if(!v('ad'))return er('اكتب العنوان');if(v('lk')&&!/^https?:\/\//i.test(v('lk')))return er('رابط اللوكيشن لازم يبدأ بـ https://');
+  const sizes={};document.querySelectorAll('.sq').forEach(i=>{if(+i.value)sizes[i.dataset.s]=+i.value});
+  pay({rn:v('rn'),rp:v('rp'),un:v('un'),fc:v('fc'),ct,pr,sizes,gd:v('gd'),dd:v('dd'),ad:v('ad'),lk:v('lk'),nt:v('nt')})}}
+
+function pay(d){const amt=G('cfg',{}).dep||0,m=$('#modal');
+ m.className='s';m.innerHTML=`<div class="card"><span class="tag">دفع تجريبي</span><h2>تأكيد الحجز</h2><p>ده دفع وهمي للتجربة، مفيش أي فلوس هتتسحب.</p>
+ <div class="card" style="margin:8px 0">${d.ct} طالب · ${esc(d.un)}<br><b>العربون: ${amt?amt+' ج.م':'الأدمن هيحدده'}</b></div>
+ <button class="btn" style="width:100%;margin:4px 0" id="ok">ادفع (نجاح تجريبي)</button>
+ <button class="btn o" style="width:100%;margin:4px 0" id="no">محاكاة فشل الدفع</button>
+ <button class="btn o" style="width:100%;margin:4px 0;border-color:var(--bd)" id="cx">رجوع</button></div>`;
+ $('#cx').onclick=()=>m.className='';$('#no').onclick=()=>{m.className='';toast('الدفع فشل (تجريبي)، جرّب تاني')};
+ $('#ok').onclick=()=>{const b=G('bookings',[]),id=nextId();
+  b.unshift({id,e:ST.me.e,d,st:'جديد',pay:{s:'تم الدفع (تجريبي)',tx:'TEST-'+Math.random().toString(36).slice(2,10).toUpperCase(),amt},at:Date.now(),msgs:[]});P('bookings',b);
+  notify(ST.me.e,`حجزك رقم ${id} اتسجل ✅ والدفع (التجريبي) تم. حالة الطلب: جديد`);notify('admin',`حجز جديد ${id} من ${d.rn} - ${d.un} (${d.ct} طالب)`);
+  m.innerHTML=`<div class="card" style="text-align:center"><h2>مبروك مقدماً! 🎉</h2><p>رقم حجزك:</p><h1 class="gold" style="font-size:30px;direction:ltr">${id}</h1><p>هنتواصل معاك قريب، وتقدر تتابع الحالة من الإشعارات.</p><button class="btn" id="dn">تمام</button></div>`;
+  celebrate();$('#dn').onclick=()=>{m.className='';go('orders')}}}
+
+const card=x=>`<div class="card"><b dir="ltr">${x.id}</b> <span class="tag">${x.st}</span><p style="margin:4px 0">${esc(x.d.un)} · ${esc(x.d.fc)} · ${x.d.ct} طالب<br>المنتجات: ${x.d.pr.join('، ')}<br>المقاسات: ${Object.entries(x.d.sizes).map(([k,v])=>k+'×'+v).join(' ')}<br>تخرج: ${x.d.gd} · استلام: ${x.d.dd}<br>${esc(x.d.ad)} ${x.d.lk?`· <a href="${esc(x.d.lk)}" target="_blank" rel="noopener">اللوكيشن</a>`:''}<br>الدفع: ${x.pay.s} (<span dir="ltr">${x.pay.tx}</span>)</p>${x.msgs.map(m=>`<div class="msg"><b>الأدمن:</b> ${esc(m)}</div>`).join('')}</div>`;
+
+function notes(a){const n=G('notes',[]);const mine=n.filter(x=>x.to==ST.me.e);mine.forEach(x=>x.r=1);P('notes',n);
+ a.innerHTML=`<h1 style="font-size:30px">الإشعارات</h1>`+(mine.length?mine.map(x=>`<div class="card">${esc(x.text)}<br><small style="color:var(--mu)">${new Date(x.at).toLocaleString('ar-EG')}</small></div>`).join(''):'<div class="card">مفيش إشعارات لسه.</div>')}
+
+function acct(a){const u=ST.me;a.innerHTML=`<h1 style="font-size:30px">حسابي</h1><form class="card" id="pf"><label for="n">الاسم</label><input id="n" value="${esc(u.n)}"><label for="ph">الموبايل</label><input id="ph" value="${esc(u.ph)}"><label>الإيميل</label><input value="${esc(u.e)}" disabled><button class="btn" style="margin-top:14px">حفظ التعديلات</button></form>
+<div class="card"><button class="btn o" onclick="if(confirm('متأكد إنك عايز تمسح حسابك؟'))del()" style="color:var(--er);border-color:var(--er)">مسح الحساب</button></div>`;
+ $('#pf').onsubmit=e=>{e.preventDefault();const us=G('users',[]),x=us.find(k=>k.e==u.e);x.n=$('#n').value.trim()||x.n;x.ph=$('#ph').value.trim()||x.ph;P('users',us);ST.me=x;toast('اتحفظت ✅')}}
+function del(){P('users',G('users',[]).filter(u=>u.e!=ST.me.e));out()}
+
+/* ---------- Admin ---------- */
+async function admin(a){
+ if(!ST.adm){const first=!G('admin',null);
+  a.innerHTML=`<h1 style="font-size:30px">دخول الأدمن</h1><form class="card" id="af2"><label>الإيميل</label><input id="ae" type="email" placeholder="${ADMIN_EMAIL}"><label>${first?'اختار باسورد للأدمن (أول مرة)':'الباسورد'}</label><input id="ap" type="password"><div class="err" id="er"></div><button class="btn">${first?'إنشاء ودخول':'دخول'}</button></form>`;
+  $('#af2').onsubmit=async e=>{e.preventDefault();const em=$('#ae').value.trim().toLowerCase(),p=$('#ap').value;
+   if(em!=ADMIN_EMAIL||p.length<6)return $('#er').textContent='بيانات غلط (الباسورد 6 حروف على الأقل)';
+   const h=await H(p),ad=G('admin',null);if(!ad)P('admin',{h});else if(ad.h!=h)return $('#er').textContent='بيانات غلط';ST.adm=true;admin(a)};return}
+ const b=G('bookings',[]),ns=G('notes',[]).filter(n=>n.to=='admin'),cfg=G('cfg',{});
+ a.innerHTML=`<h1 style="font-size:30px">لوحة الأدمن</h1><div class="card"><b>إعدادات</b><label for="dp">العربون (ج.م) — تحدده أنت</label><input id="dp" type="number" min="0" value="${cfg.dep||''}"><label for="wa">رقم واتساب النشاط</label><input id="wa" dir="ltr" value="${esc(cfg.wa||'')}"><button class="btn" style="margin-top:10px" onclick="P('cfg',{dep:+$('#dp').value||0,wa:$('#wa').value.trim()});toast('اتحفظ ✅')">حفظ</button></div>
+ <div class="card"><b>إشعارات الأدمن (${ns.length})</b>${ns.slice(0,5).map(n=>`<div class="msg">${esc(n.text)}</div>`).join('')||'<p>مفيش جديد.</p>'}</div>
+ <h2>كل الحجوزات (${b.length})</h2>`+b.map((x,i)=>`<div class="card"><b dir="ltr">${x.id}</b> · ${esc(x.d.rn)} · <a href="tel:${esc(x.d.rp)}">اتصال</a>${cfg.wa?` · <a target="_blank" rel="noopener" href="https://wa.me/${cfg.wa.replace(/\D/g,'')}?text=${encodeURIComponent('بخصوص حجز '+x.id)}">واتساب</a>`:''}
+ ${card(x).replace(/^<div class="card">|<\/div>$/g,'')}
+ <select id="s${i}">${STAT.map(s=>`<option ${s==x.st?'selected':''}>${s}</option>`).join('')}</select><textarea id="m${i}" rows="2" placeholder="رد للعميل (اختياري)" style="margin-top:6px"></textarea><button class="btn" style="margin-top:6px" onclick="reply(${i})">ابعت للعميل</button></div>`).join('');adminX(a)}
+function reply(i){const b=G('bookings',[]),x=b[i],st=$('#s'+i).value,m=$('#m'+i).value.trim();x.st=st;if(m)x.msgs.push(m);P('bookings',b);
+ notify(x.e,`تحديث على حجز ${x.id}: حالة الطلب "${st}"${m?' — رسالة الأدمن: '+m:''}`);toast('اتبعت للعميل ✅');admin($('#app'))}
+
+/* ---------- Shop / cart / retail orders ---------- */
+const RST=['جديد','تم الدفع','قيد التجهيز','جاهز','تم التسليم','ملغي'];
+const nextId=()=>{const n=G('seq',0)+1;P('seq',n);return `REF-${new Date().getFullYear()}-${String(n).padStart(4,'0')}`};
+const money=n=>(+n).toLocaleString('ar-EG')+' ج.م',price=p=>p.sale>0&&p.sale<p.pr?p.sale:p.pr,cartK=()=>'cart:'+ST.me.e;
+const swatch=c=>c&&c.img?`<div class="im"><img src="${c.img}" alt="" loading="lazy" style="width:100%;aspect-ratio:1;object-fit:cover"></div>`:`<div class="im"><div style="aspect-ratio:1;display:grid;place-items:center;background:var(--bg)"><svg viewBox="0 0 48 48" width="62%" style="fill:${c?esc(c.c):'#999'};stroke:var(--gd);stroke-width:1.2"><path d="M16 6L4 13l5 8 6-3v22h18V18l6 3 5-8L32 6c-2 4-14 4-16 0z"/></svg></div></div>`;
+function shop(a,id){if(id)return prod(a,id);const ps=G('prods',[]).filter(p=>p.on!==false);
+ a.innerHTML=`<h1 style="font-size:30px">المنتجات</h1>`+(ps.length?`<div class="gr">${ps.map(p=>`<div class="card hv" style="cursor:pointer" onclick="shop($('#app'),'${p.id}')">${swatch(p.cl[0])}<b>${esc(p.n)}</b><br>${price(p)<p.pr?`<s style="color:var(--mu)">${money(p.pr)}</s> `:''}<span class="gold">${money(price(p))}</span>${p.st<1?' <span class="tag">خلص</span>':''}</div>`).join('')}</div>`:'<div class="card">لسه مفيش منتجات، الأدمن بيضيفها من لوحته.</div>')}
+function prod(a,id){const p=G('prods',[]).find(x=>x.id==id);if(!p)return shop(a);let ci=0,sz=p.sz[0]||'';
+ const r=()=>{a.innerHTML=`<button class="btn o" onclick="go('shop')">← رجوع</button><div class="pd"><div style="margin-top:10px">${swatch(p.cl[ci])}</div><div><h1 style="font-size:28px">${esc(p.n)}</h1><span class="gold" style="font-size:22px;font-weight:800">${money(price(p))}</span>${price(p)<p.pr?` <s>${money(p.pr)}</s> <span class="tag">-${Math.round(100-price(p)/p.pr*100)}%</span>`:''}
+ ${p.cl.length?`<label>اللون: ${esc(p.cl[ci].n)}</label><div class="chips">${p.cl.map((c,i)=>`<button type="button" class="ib" aria-label="${esc(c.n)}" style="background:${esc(c.c)};${i==ci?'outline:3px solid var(--gd)':''}" data-c="${i}"></button>`).join('')}</div>`:''}
+ ${p.sz.length?`<label>المقاس</label><div class="chips">${p.sz.map(s=>`<button type="button" class="btn ${s==sz?'':'o'}" style="padding:6px 16px;min-height:40px" data-s="${esc(s)}">${esc(s)}</button>`).join('')}</div>`:''}
+ <label for="q">الكمية (المتاح: ${p.st})</label><input id="q" type="number" min="1" max="${p.st}" value="1"><p>${esc(p.ds||'')}</p>
+ <button class="btn" id="ad" ${p.st<1?'disabled':''}>أضف للسلة</button> <button class="btn o" id="bn" ${p.st<1?'disabled':''}>اشترِ الآن</button></div></div>`;
+ a.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{ci=+b.dataset.c;r()});a.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{sz=b.dataset.s;r()});
+ const add=()=>{const q=Math.min(Math.max(+$('#q').value||1,1),p.st),c=G(cartK(),[]),k=c.find(i=>i.id==p.id&&i.c==ci&&i.s==sz);k?k.q=Math.min(k.q+q,p.st):c.push({id:p.id,c:ci,s:sz,q});P(cartK(),c);toast('اتضاف للسلة 🛒')};
+ $('#ad').onclick=add;$('#bn').onclick=()=>{add();go('cart')}};r()}
+function cart(a){const ps=G('prods',[]),c=G(cartK(),[]).filter(i=>ps.find(p=>p.id==i.id));P(cartK(),c);
+ const tot=c.reduce((t,i)=>t+price(ps.find(p=>p.id==i.id))*i.q,0);
+ a.innerHTML=`<h1 style="font-size:30px">السلة 🛒</h1>`+(c.length?c.map((i,x)=>{const p=ps.find(p=>p.id==i.id);return `<div class="card"><b>${esc(p.n)}</b> · ${esc(p.cl[i.c]?.n||'')} · ${esc(i.s)}<br>${money(price(p))} × ${i.q} = <b>${money(price(p)*i.q)}</b><br><button class="ib" data-m="${x}" aria-label="نقص">−</button> <button class="ib" data-p="${x}" aria-label="زود">+</button> <button class="btn o" data-d="${x}">شيل</button></div>`}).join('')+`<div class="card"><b>الإجمالي: ${money(tot)}</b></div><div class="card"><label for="cn">الاسم</label><input id="cn" value="${esc(ST.me.n)}"><label for="cp">الموبايل / واتساب</label><input id="cp" value="${esc(ST.me.ph)}"><label for="ca">العنوان وتفاصيل التوصيل</label><textarea id="ca" rows="2"></textarea><div class="err" id="er"></div><button class="btn" id="co" style="width:100%">كمّل للدفع</button></div>`:`<div class="card">السلة فاضية. <button class="btn" onclick="go('shop')">تصفح المنتجات</button></div>`);
+ const ch=(s,f)=>a.querySelectorAll(s).forEach(b=>b.onclick=()=>{const n=G(cartK(),[]),i=+Object.values(b.dataset)[0];f(n,i);P(cartK(),n.filter(k=>k.q>0));cart(a)});
+ ch('[data-m]',(n,i)=>n[i].q--);ch('[data-p]',(n,i)=>{const p=ps.find(p=>p.id==n[i].id);n[i].q=Math.min(n[i].q+1,p.st)});ch('[data-d]',(n,i)=>n[i].q=0);
+ if($('#co'))$('#co').onclick=()=>{const v=i=>$('#'+i).value.trim();if(!v('cn')||!v('cp')||!v('ca'))return $('#er').textContent='كمّل الاسم والموبايل والعنوان';
+  const items=c.map(i=>{const p=ps.find(p=>p.id==i.id);return{id:p.id,n:p.n,c:p.cl[i.c]?.n||'',s:i.s,q:i.q,p:price(p)}});
+  if(items.some(i=>i.q>ps.find(p=>p.id==i.id).st))return $('#er').textContent='الكمية أكبر من المخزون';
+  const m=$('#modal');m.className='s';m.innerHTML=`<div class="card"><span class="tag">دفع تجريبي</span><h2>الإجمالي: ${money(tot)}</h2><p>دفع وهمي، مفيش فلوس بتتسحب.</p><button class="btn" style="width:100%;margin:4px 0" id="ok">ادفع (نجاح تجريبي)</button><button class="btn o" style="width:100%;margin:4px 0" id="no">محاكاة فشل الدفع</button><button class="btn o" style="width:100%;margin:4px 0" id="cx">رجوع</button></div>`;
+  $('#cx').onclick=()=>m.className='';$('#no').onclick=()=>{m.className='';toast('الدفع فشل (تجريبي)، جرّب تاني')};
+  $('#ok').onclick=()=>{const o=G('orders',[]),id=nextId(),pp=G('prods',[]);items.forEach(i=>pp.find(p=>p.id==i.id).st-=i.q);P('prods',pp);
+   o.unshift({id,e:ST.me.e,items,tot,info:{n:v('cn'),p:v('cp'),a:v('ca')},st:'تم الدفع',pay:{s:'تم الدفع (تجريبي)',tx:'TEST-'+Math.random().toString(36).slice(2,10).toUpperCase()},at:Date.now(),msgs:[]});P('orders',o);P(cartK(),[]);
+   notify(ST.me.e,`طلبك ${id} اتأكد ✅ والدفع (التجريبي) تم. حالة الطلب: تم الدفع`);notify('admin',`طلب جديد ${id} بإجمالي ${money(tot)}`);
+   m.innerHTML=`<div class="card" style="text-align:center"><h2>الطلب وصلنا! 🎉</h2><h1 class="gold" style="font-size:30px;direction:ltr">${id}</h1><button class="btn" id="dn">تتبع الطلب</button></div>`;celebrate();$('#dn').onclick=()=>{m.className='';go('orders')}}}}
+const oc=o=>`<b dir="ltr">${o.id}</b> <span class="tag">${o.st}</span><p style="margin:4px 0">${o.items.map(i=>`${esc(i.n)} (${esc(i.c)} / ${esc(i.s)}) ×${i.q}`).join('<br>')}<br><b>${money(o.tot)}</b> · ${esc(o.info.a)}<br>الدفع: ${o.pay.s}</p>${o.msgs.map(m=>`<div class="msg"><b>الأدمن:</b> ${esc(m)}</div>`).join('')}`;
+function orders(a){const b=G('bookings',[]).filter(x=>x.e==ST.me.e),o=G('orders',[]).filter(x=>x.e==ST.me.e);
+ a.innerHTML=`<h1 style="font-size:30px">طلباتي وحجوزاتي</h1>`+(b.length||o.length?o.map(x=>`<div class="card">${oc(x)}</div>`).join('')+b.map(card).join(''):`<div class="card">لسه معندكش حاجة. <button class="btn" onclick="go('shop')">تسوق</button> <button class="btn o" onclick="go('book')">جهّز دفعتك</button></div>`)}
+function oreply(i){const o=G('orders',[]),x=o[i],m=$('#om'+i).value.trim();x.st=$('#os'+i).value;if(m)x.msgs.push(m);P('orders',o);notify(x.e,`تحديث على طلب ${x.id}: حالة الطلب "${x.st}"${m?' — رسالة الأدمن: '+m:''}`);toast('اتبعت للعميل ✅');admin($('#app'))}
+function delp(id){if(confirm('تمسح المنتج؟')){P('prods',G('prods',[]).filter(p=>p.id!=id));admin($('#app'))}}
+function adminX(a){const os=G('orders',[]);
+ a.insertAdjacentHTML('beforeend',`<h2>طلبات القطاعي (${os.length})</h2>`+os.map((o,i)=>`<div class="card">${oc(o)}<a href="tel:${esc(o.info.p)}">اتصال</a><br><select id="os${i}">${RST.map(s=>`<option ${s==o.st?'selected':''}>${s}</option>`).join('')}</select><textarea id="om${i}" rows="2" placeholder="رد للعميل" style="margin-top:6px"></textarea><button class="btn" style="margin-top:6px" onclick="oreply(${i})">ابعت للعميل</button></div>`).join('')
+ +`<h2>المنتجات (${G('prods',[]).length})</h2>`+G('prods',[]).map(p=>`<div class="card">${esc(p.n)} · ${money(p.pr)} · مخزون ${p.st} <button class="btn o" onclick="delp('${p.id}')">مسح</button></div>`).join('')
+ +`<form class="card" id="pf2"><b>منتج جديد</b><label for="pn">الاسم</label><input id="pn"><label for="pd">الوصف</label><textarea id="pd" rows="2"></textarea><div class="g2"><div><label for="pp">السعر</label><input id="pp" type="number" min="0"></div><div><label for="ps">سعر الخصم (اختياري)</label><input id="ps" type="number" min="0"></div></div><div class="g2"><div><label for="pk">المخزون</label><input id="pk" type="number" min="0"></div><div><label for="pz">المقاسات (بفاصلة)</label><input id="pz" placeholder="S,M,L"></div></div><label>الألوان (صورة لكل لون)</label><div id="cls"></div><button type="button" class="btn o" id="al">+ لون</button><div class="err" id="er2"></div><button class="btn" style="width:100%;margin-top:10px">حفظ المنتج</button></form>`);
+ const addC=()=>$('#cls').insertAdjacentHTML('beforeend',`<div class="g2 cr" style="margin:6px 0"><input placeholder="اسم اللون" class="cn"><input type="color" class="cc" value="#0b1f4b" style="padding:2px"><input type="file" accept="image/jpeg,image/png,image/webp" class="cf" style="grid-column:1/-1"></div>`);addC();$('#al').onclick=addC;
+ $('#pf2').onsubmit=async e=>{e.preventDefault();const v=i=>$('#'+i).value.trim(),er=m=>$('#er2').textContent=m;if(!v('pn')||!(+v('pp')>0)||v('pk')==='')return er('الاسم والسعر والمخزون مطلوبين');
+  const cl=[];for(const r of document.querySelectorAll('.cr')){const n=r.querySelector('.cn').value.trim();if(!n)continue;const f=r.querySelector('.cf').files[0];let img='';
+   if(f){if(!['image/jpeg','image/png','image/webp'].includes(f.type)||!/\.(jpe?g|png|webp)$/i.test(f.name))return er('الصور JPG/PNG/WEBP بس');if(f.size>400000)return er('الصورة أكبر من 400KB');img=await new Promise(z=>{const q=new FileReader;q.onload=()=>z(q.result);q.readAsDataURL(f)})}
+   cl.push({n,c:r.querySelector('.cc').value,img})}
+  const ps=G('prods',[]);ps.push({id:'p'+Date.now(),n:v('pn'),ds:v('pd'),pr:+v('pp'),sale:+v('ps')||0,st:+v('pk'),sz:v('pz').split(',').map(s=>s.trim()).filter(Boolean),cl,on:true});P('prods',ps);toast('المنتج اتضاف ✅');admin($('#app'))}}
+
+/* ---------- Celebration ---------- */
+function celebrate(){const c=$('#fx'),x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;let ps=[];
+ const boom=()=>{const X=Math.random()*c.width*.8+c.width*.1,Y=Math.random()*c.height*.45+40,h=Math.random()*360;for(let i=0;i<60;i++){const a=Math.PI*2*i/60,s=2+Math.random()*4;ps.push({x:X,y:Y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,l:1,h})}};
+ const still=matchMedia('(prefers-reduced-motion:reduce)').matches;
+ if(!still){for(let i=0;i<24;i++){const e=document.createElement('span');e.className='cap';e.textContent='🎓';e.style.cssText=`left:${Math.random()*95}vw;--x:${(Math.random()-.5)*160}px;--r:${(Math.random()-.5)*900}deg;--d:${2.6+Math.random()*2.2}s;animation-delay:${Math.random()*1.2}s`;document.body.append(e);setTimeout(()=>e.remove(),6500)}}
+ let t=0;const loop=()=>{x.clearRect(0,0,c.width,c.height);if(t<160&&t%22==0&&!still)boom();t++;ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.06;p.l-=.014;x.fillStyle=`hsla(${p.h},90%,60%,${Math.max(p.l,0)})`;x.fillRect(p.x,p.y,3,3)});ps=ps.filter(p=>p.l>0);if(t<260||ps.length)requestAnimationFrame(loop);else x.clearRect(0,0,c.width,c.height)};loop()}
+
+/* ---------- Boot ---------- */
+theme();const me=G('me',null);ST.me=me&&G('users',[]).find(u=>u.e==me);ST.me?shell():gate('reg');
+</script>
+</body>
+</html>
